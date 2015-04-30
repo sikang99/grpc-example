@@ -61,6 +61,7 @@ func init() {
 
 type CustomerServiceClient interface {
 	ListPerson(ctx context.Context, in *RequestType, opts ...grpc.CallOption) (CustomerService_ListPersonClient, error)
+	GetPerson(ctx context.Context, in *Person, opts ...grpc.CallOption) (*ResponseType, error)
 	AddPerson(ctx context.Context, in *Person, opts ...grpc.CallOption) (*ResponseType, error)
 	DeletePerson(ctx context.Context, in *Person, opts ...grpc.CallOption) (*ResponseType, error)
 	UpdatePerson(ctx context.Context, in *Person, opts ...grpc.CallOption) (*ResponseType, error)
@@ -106,6 +107,15 @@ func (x *customerServiceListPersonClient) Recv() (*Person, error) {
 	return m, nil
 }
 
+func (c *customerServiceClient) GetPerson(ctx context.Context, in *Person, opts ...grpc.CallOption) (*ResponseType, error) {
+	out := new(ResponseType)
+	err := grpc.Invoke(ctx, "/proto.CustomerService/GetPerson", in, out, c.cc, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *customerServiceClient) AddPerson(ctx context.Context, in *Person, opts ...grpc.CallOption) (*ResponseType, error) {
 	out := new(ResponseType)
 	err := grpc.Invoke(ctx, "/proto.CustomerService/AddPerson", in, out, c.cc, opts...)
@@ -137,6 +147,7 @@ func (c *customerServiceClient) UpdatePerson(ctx context.Context, in *Person, op
 
 type CustomerServiceServer interface {
 	ListPerson(*RequestType, CustomerService_ListPersonServer) error
+	GetPerson(context.Context, *Person) (*ResponseType, error)
 	AddPerson(context.Context, *Person) (*ResponseType, error)
 	DeletePerson(context.Context, *Person) (*ResponseType, error)
 	UpdatePerson(context.Context, *Person) (*ResponseType, error)
@@ -165,6 +176,18 @@ type customerServiceListPersonServer struct {
 
 func (x *customerServiceListPersonServer) Send(m *Person) error {
 	return x.ServerStream.SendMsg(m)
+}
+
+func _CustomerService_GetPerson_Handler(srv interface{}, ctx context.Context, codec grpc.Codec, buf []byte) (interface{}, error) {
+	in := new(Person)
+	if err := codec.Unmarshal(buf, in); err != nil {
+		return nil, err
+	}
+	out, err := srv.(CustomerServiceServer).GetPerson(ctx, in)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
 }
 
 func _CustomerService_AddPerson_Handler(srv interface{}, ctx context.Context, codec grpc.Codec, buf []byte) (interface{}, error) {
@@ -207,6 +230,10 @@ var _CustomerService_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "proto.CustomerService",
 	HandlerType: (*CustomerServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "GetPerson",
+			Handler:    _CustomerService_GetPerson_Handler,
+		},
 		{
 			MethodName: "AddPerson",
 			Handler:    _CustomerService_AddPerson_Handler,

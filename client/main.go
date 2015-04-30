@@ -40,7 +40,7 @@ func get(id int) error {
 	person := &pb.Person{
 		Id: int32(id),
 	}
-	_, err = client.DeletePerson(context.Background(), person)
+	_, err = client.GetPerson(context.Background(), person)
 	return err
 }
 
@@ -74,7 +74,7 @@ func update(id int, name string, age int) error {
 		Name: name,
 		Age:  int32(age),
 	}
-	_, err = client.DeletePerson(context.Background(), person)
+	_, err = client.UpdatePerson(context.Background(), person)
 	return err
 }
 
@@ -114,6 +114,17 @@ func main() {
 			Desc: "list: listing person",
 			Run: func(c *sc.C, args []string) error {
 				return list()
+			},
+		},
+		{
+			Name: "get",
+			Desc: "get [id]: get person",
+			Run: func(c *sc.C, args []string) error {
+				if len(args) != 1 {
+					return sc.UsageError
+				}
+				id, _ := strconv.Atoi(args[0])
+				return get(id)
 			},
 		},
 		{

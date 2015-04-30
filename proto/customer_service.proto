@@ -4,6 +4,7 @@ package proto;
 
 service CustomerService {
   rpc ListPerson(RequestType) returns (stream Person) {};
+  rpc GetPerson(Person) returns (ResponseType) {}
   rpc AddPerson(Person) returns (ResponseType) {}
   rpc DeletePerson(Person) returns (ResponseType) {}
   rpc UpdatePerson(Person) returns (ResponseType) {}

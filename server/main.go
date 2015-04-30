@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"net"
 	"sync"
@@ -28,8 +29,8 @@ func NewCustomerService() *customerService {
 func (cs *customerService) ListPerson(p *pb.RequestType, stream pb.CustomerService_ListPersonServer) error {
 	log.Println("list")
 	cs.Lock()
-
 	defer cs.Unlock()
+
 	for _, p := range cs.customers {
 		if err := stream.Send(p); err != nil {
 			return err
@@ -42,6 +43,13 @@ func (cs *customerService) GetPerson(c context.Context, p *pb.Person) (*pb.Respo
 	log.Printf("get (%d)\n", p.Id)
 	cs.Lock()
 	defer cs.Unlock()
+
+	ps, ok := cs.customers[int(p.Id)]
+	if ok {
+		fmt.Printf("%v\n", ps)
+	} else {
+		log.Printf("%d is not found\n", p.Id)
+	}
 
 	return new(pb.ResponseType), nil
 }
@@ -76,6 +84,8 @@ func (cs *customerService) UpdatePerson(c context.Context, p *pb.Person) (*pb.Re
 	_, ok := cs.customers[int(p.Id)]
 	if ok {
 		cs.customers[int(p.Id)] = p
+	} else {
+		log.Printf("%d is not found\n", p.Id)
 	}
 
 	return new(pb.ResponseType), nil
