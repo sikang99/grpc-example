@@ -5,10 +5,9 @@ import (
 	"net"
 	"sync"
 
+	pb "../proto"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
-	//pb "github.com/sikang99/grpc-example/proto"
-	pb "../proto"
 )
 
 type customerService struct {

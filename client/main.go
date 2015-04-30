@@ -5,11 +5,10 @@ import (
 	"io"
 	"strconv"
 
+	pb "../proto"
 	"github.com/mattn/sc"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
-	//pb "github.com/sikang99/grpc-example/proto"
-	pb "../proto"
 )
 
 func add(name string, age int) error {

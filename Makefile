@@ -1,12 +1,16 @@
 .PHONY:	all proto build run client server kill make usage
 
-PROGRAM=grpc-example
 PROTOC=/usr/local/bin/protoc
+PROGRAM=grpc-example
+SERVICE=customer_service
 
 all: usage
 
 ep:
-	vi proto/customer_service.proto
+	vi proto/$(SERVICE).proto
+
+epg:
+	vi proto/$(SERVICE).pb.go
 
 ec:
 	vi client/main.go
@@ -14,8 +18,8 @@ ec:
 es:
 	vi server/main.go
 
-proto:
-	$(PROTOC) -I./proto ./proto/customer_service.proto --go_out=plugins=grpc:proto
+proto p:
+	$(PROTOC) -I./proto ./proto/$(SERVICE).proto --go_out=plugins=grpc:proto
 	@ls -al ./proto
 
 
@@ -28,12 +32,12 @@ run r:
 	sleep 1
 	./client/client list
 
-client:
+client rc:
 	./client/client add stoney 52
 	./client/client add mandoo 19
 	./client/client list
 
-server:
+server rs:
 	./server/server &
 
 kill k:
