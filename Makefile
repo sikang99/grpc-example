@@ -37,6 +37,8 @@ client rc:
 	./client/client add stoney 52
 	./client/client add mandoo 19
 	./client/client list
+	./client/client delete 2 
+	./client/client list
 
 server rs:
 	./server/server &
@@ -47,7 +49,7 @@ kill k:
 git-push gpush gu:
 	git init
 	git add *
-	git commit -m "write readme"
+	git commit -m "change slide into map structure"
 	git push -u https://sikang99@github.com/sikang99/$(PROGRAM) master
 	#chromium-browser https://github.com/sikang99/$(PROGRAM)
 

@@ -45,8 +45,9 @@ func (m *RequestType) String() string { return proto1.CompactTextString(m) }
 func (*RequestType) ProtoMessage()    {}
 
 type Person struct {
-	Name string `protobuf:"bytes,1,opt,name=name" json:"name,omitempty"`
-	Age  int32  `protobuf:"varint,2,opt,name=age" json:"age,omitempty"`
+	Id   int32  `protobuf:"varint,1,opt,name=id" json:"id,omitempty"`
+	Name string `protobuf:"bytes,2,opt,name=name" json:"name,omitempty"`
+	Age  int32  `protobuf:"varint,3,opt,name=age" json:"age,omitempty"`
 }
 
 func (m *Person) Reset()         { *m = Person{} }

@@ -13,7 +13,7 @@ refer Makefile to know how to use
 	$ make 
 	make [proto|build|run|kill]
 
-compile IDL of gRPC
+compile IDL proto of gRPC
 	
 	$ make proto
 
@@ -21,7 +21,7 @@ build client and server programs
 
 	$ make build
 
-run and test
+run and test the service
 	
 	$ make run
 

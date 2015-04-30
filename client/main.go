@@ -28,7 +28,7 @@ func add(name string, age int) error {
 	return err
 }
 
-func delete(name string) error {
+func delete(id int) error {
 	conn, err := grpc.Dial("127.0.0.1:11111")
 	if err != nil {
 		return err
@@ -38,7 +38,7 @@ func delete(name string) error {
 	client := pb.NewCustomerServiceClient(conn)
 
 	person := &pb.Person{
-		Name: name,
+		Id: int32(id),
 	}
 	_, err = client.DeletePerson(context.Background(), person)
 	return err
@@ -99,13 +99,13 @@ func main() {
 		},
 		{
 			Name: "delete",
-			Desc: "delete [name]: delete person",
+			Desc: "delete [id]: delete person",
 			Run: func(c *sc.C, args []string) error {
 				if len(args) != 1 {
 					return sc.UsageError
 				}
-				name := args[0]
-				return delete(name)
+				id, _ := strconv.Atoi(args[0])
+				return delete(id)
 			},
 		},
 	}).Run(&sc.C{

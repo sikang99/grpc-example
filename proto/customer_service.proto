@@ -17,6 +17,7 @@ message RequestType {
 }
 
 message Person {
-  string name = 1;
-  int32  age  = 2;
+  int32 id = 1;
+  string name = 2;
+  int32 age  = 3;
 }

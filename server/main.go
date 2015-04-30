@@ -11,8 +11,17 @@ import (
 )
 
 type customerService struct {
-	customers []*pb.Person
+	customers map[int]*pb.Person
+	id        int // current unique id number
 	m         sync.Mutex
+}
+
+func NewCustomerService() *customerService {
+	cs := customerService{
+		customers: make(map[int]*pb.Person),
+	}
+
+	return &cs
 }
 
 func (cs *customerService) ListPerson(p *pb.RequestType, stream pb.CustomerService_ListPersonServer) error {
@@ -31,7 +40,9 @@ func (cs *customerService) AddPerson(c context.Context, p *pb.Person) (*pb.Respo
 	log.Println("add")
 	cs.m.Lock()
 	defer cs.m.Unlock()
-	cs.customers = append(cs.customers, p)
+	cs.id++
+	p.Id = int32(cs.id)
+	cs.customers[int(p.Id)] = p
 	return new(pb.ResponseType), nil
 }
 
@@ -39,7 +50,7 @@ func (cs *customerService) DeletePerson(c context.Context, p *pb.Person) (*pb.Re
 	log.Println("delete")
 	cs.m.Lock()
 	defer cs.m.Unlock()
-	//cs.customers = delete(cs.customers, p)
+	delete(cs.customers, int(p.Id))
 	return new(pb.ResponseType), nil
 }
 
@@ -50,6 +61,6 @@ func main() {
 	}
 	server := grpc.NewServer()
 
-	pb.RegisterCustomerServiceServer(server, new(customerService))
+	pb.RegisterCustomerServiceServer(server, NewCustomerService())
 	server.Serve(lis)
 }
