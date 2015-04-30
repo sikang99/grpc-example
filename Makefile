@@ -42,7 +42,7 @@ kill k:
 git-push gpush gu:
 	git init
 	git add *
-	git commit -m "write to test grpc example"
+	git commit -m "write readme"
 	git push -u https://sikang99@github.com/sikang99/$(PROGRAM) master
 	#chromium-browser https://github.com/sikang99/$(PROGRAM)
 
