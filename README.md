@@ -8,6 +8,21 @@ Simple gRPC example
 
 ## Usage
 
+refer Makefile to know how to use
+	
+	$ make 
+
+compile IDL of gRPC
+	
+	$ make proto
+
+build client and server programs
+
+	$ make build
+
+run and test
+	
+	$ make run
 
 ## Options
 
