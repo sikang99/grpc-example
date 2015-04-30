@@ -13,12 +13,13 @@ import (
 type customerService struct {
 	customers map[int]*pb.Person
 	id        int // current unique id number
-	m         sync.Mutex
+	sync.Mutex
 }
 
 func NewCustomerService() *customerService {
 	cs := customerService{
 		customers: make(map[int]*pb.Person),
+		id:        1,
 	}
 
 	return &cs
@@ -26,8 +27,9 @@ func NewCustomerService() *customerService {
 
 func (cs *customerService) ListPerson(p *pb.RequestType, stream pb.CustomerService_ListPersonServer) error {
 	log.Println("list")
-	cs.m.Lock()
-	defer cs.m.Unlock()
+	cs.Lock()
+
+	defer cs.Unlock()
 	for _, p := range cs.customers {
 		if err := stream.Send(p); err != nil {
 			return err
@@ -36,21 +38,46 @@ func (cs *customerService) ListPerson(p *pb.RequestType, stream pb.CustomerServi
 	return nil
 }
 
+func (cs *customerService) GetPerson(c context.Context, p *pb.Person) (*pb.ResponseType, error) {
+	log.Printf("get (%d)\n", p.Id)
+	cs.Lock()
+	defer cs.Unlock()
+
+	return new(pb.ResponseType), nil
+}
+
 func (cs *customerService) AddPerson(c context.Context, p *pb.Person) (*pb.ResponseType, error) {
-	log.Println("add")
-	cs.m.Lock()
-	defer cs.m.Unlock()
-	cs.id++
+	log.Printf("add (%d)\n", cs.id)
+	cs.Lock()
+	defer cs.Unlock()
+
 	p.Id = int32(cs.id)
 	cs.customers[int(p.Id)] = p
+	cs.id++
+
 	return new(pb.ResponseType), nil
 }
 
 func (cs *customerService) DeletePerson(c context.Context, p *pb.Person) (*pb.ResponseType, error) {
-	log.Println("delete")
-	cs.m.Lock()
-	defer cs.m.Unlock()
+	log.Printf("delete (%d)\n", p.Id)
+	cs.Lock()
+	defer cs.Unlock()
+
 	delete(cs.customers, int(p.Id))
+
+	return new(pb.ResponseType), nil
+}
+
+func (cs *customerService) UpdatePerson(c context.Context, p *pb.Person) (*pb.ResponseType, error) {
+	log.Printf("update (%d)\n", p.Id)
+	cs.Lock()
+	defer cs.Unlock()
+
+	_, ok := cs.customers[int(p.Id)]
+	if ok {
+		cs.customers[int(p.Id)] = p
+	}
+
 	return new(pb.ResponseType), nil
 }
 

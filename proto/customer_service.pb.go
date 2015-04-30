@@ -63,6 +63,7 @@ type CustomerServiceClient interface {
 	ListPerson(ctx context.Context, in *RequestType, opts ...grpc.CallOption) (CustomerService_ListPersonClient, error)
 	AddPerson(ctx context.Context, in *Person, opts ...grpc.CallOption) (*ResponseType, error)
 	DeletePerson(ctx context.Context, in *Person, opts ...grpc.CallOption) (*ResponseType, error)
+	UpdatePerson(ctx context.Context, in *Person, opts ...grpc.CallOption) (*ResponseType, error)
 }
 
 type customerServiceClient struct {
@@ -123,12 +124,22 @@ func (c *customerServiceClient) DeletePerson(ctx context.Context, in *Person, op
 	return out, nil
 }
 
+func (c *customerServiceClient) UpdatePerson(ctx context.Context, in *Person, opts ...grpc.CallOption) (*ResponseType, error) {
+	out := new(ResponseType)
+	err := grpc.Invoke(ctx, "/proto.CustomerService/UpdatePerson", in, out, c.cc, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // Server API for CustomerService service
 
 type CustomerServiceServer interface {
 	ListPerson(*RequestType, CustomerService_ListPersonServer) error
 	AddPerson(context.Context, *Person) (*ResponseType, error)
 	DeletePerson(context.Context, *Person) (*ResponseType, error)
+	UpdatePerson(context.Context, *Person) (*ResponseType, error)
 }
 
 func RegisterCustomerServiceServer(s *grpc.Server, srv CustomerServiceServer) {
@@ -180,6 +191,18 @@ func _CustomerService_DeletePerson_Handler(srv interface{}, ctx context.Context,
 	return out, nil
 }
 
+func _CustomerService_UpdatePerson_Handler(srv interface{}, ctx context.Context, codec grpc.Codec, buf []byte) (interface{}, error) {
+	in := new(Person)
+	if err := codec.Unmarshal(buf, in); err != nil {
+		return nil, err
+	}
+	out, err := srv.(CustomerServiceServer).UpdatePerson(ctx, in)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 var _CustomerService_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "proto.CustomerService",
 	HandlerType: (*CustomerServiceServer)(nil),
@@ -191,6 +214,10 @@ var _CustomerService_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "DeletePerson",
 			Handler:    _CustomerService_DeletePerson_Handler,
+		},
+		{
+			MethodName: "UpdatePerson",
+			Handler:    _CustomerService_UpdatePerson_Handler,
 		},
 	},
 	Streams: []grpc.StreamDesc{

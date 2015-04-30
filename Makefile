@@ -49,7 +49,7 @@ kill k:
 git-push gpush gu:
 	git init
 	git add *
-	git commit -m "change slide into map structure"
+	git commit -m "add get and update functions in the client"
 	git push -u https://sikang99@github.com/sikang99/$(PROGRAM) master
 	#chromium-browser https://github.com/sikang99/$(PROGRAM)
 

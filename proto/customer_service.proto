@@ -6,7 +6,7 @@ service CustomerService {
   rpc ListPerson(RequestType) returns (stream Person) {};
   rpc AddPerson(Person) returns (ResponseType) {}
   rpc DeletePerson(Person) returns (ResponseType) {}
-
+  rpc UpdatePerson(Person) returns (ResponseType) {}
 }
 
 message ResponseType {
