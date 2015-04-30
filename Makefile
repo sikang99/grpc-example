@@ -1,3 +1,4 @@
+# Makefile for go program
 .PHONY:	all proto build run client server kill make usage
 
 PROTOC=/usr/local/bin/protoc
