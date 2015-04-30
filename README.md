@@ -11,6 +11,7 @@ Simple gRPC example
 refer Makefile to know how to use
 	
 	$ make 
+	make [proto|build|run|kill]
 
 compile IDL of gRPC
 	
