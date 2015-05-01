@@ -25,8 +25,8 @@ func NewCustomerService() *customerService {
 	return &cs
 }
 
-func (cs *customerService) ListPerson(p *pb.RequestType, stream pb.CustomerService_ListPersonServer) error {
-	log.Printf("list %v\n", p.Man)
+func (cs *customerService) ListPersons(p *pb.RequestType, stream pb.CustomerService_ListPersonsServer) error {
+	log.Printf("list (%v)\n", p.Man)
 	cs.Lock()
 	defer cs.Unlock()
 

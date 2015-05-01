@@ -3,7 +3,7 @@ syntax = "proto3";
 package proto;
 
 service CustomerService {
-  rpc ListPerson(RequestType) returns (stream Person) {};
+  rpc ListPersons(RequestType) returns (stream Person) {};
   rpc AddPerson(Person) returns (ResponseType) {};	// Create
   rpc GetPerson(Person) returns (ResponseType) {};	// Read
   rpc UpdatePerson(Person) returns (ResponseType) {};	// Update

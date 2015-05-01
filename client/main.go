@@ -30,7 +30,7 @@ func list(age int) error {
 		req.Man = ps
 	}
 
-	stream, err := client.ListPerson(context.Background(), req)
+	stream, err := client.ListPersons(context.Background(), req)
 	if err != nil {
 		return err
 	}

@@ -75,7 +75,7 @@ func init() {
 // Client API for CustomerService service
 
 type CustomerServiceClient interface {
-	ListPerson(ctx context.Context, in *RequestType, opts ...grpc.CallOption) (CustomerService_ListPersonClient, error)
+	ListPersons(ctx context.Context, in *RequestType, opts ...grpc.CallOption) (CustomerService_ListPersonsClient, error)
 	AddPerson(ctx context.Context, in *Person, opts ...grpc.CallOption) (*ResponseType, error)
 	GetPerson(ctx context.Context, in *Person, opts ...grpc.CallOption) (*ResponseType, error)
 	UpdatePerson(ctx context.Context, in *Person, opts ...grpc.CallOption) (*ResponseType, error)
@@ -90,12 +90,12 @@ func NewCustomerServiceClient(cc *grpc.ClientConn) CustomerServiceClient {
 	return &customerServiceClient{cc}
 }
 
-func (c *customerServiceClient) ListPerson(ctx context.Context, in *RequestType, opts ...grpc.CallOption) (CustomerService_ListPersonClient, error) {
-	stream, err := grpc.NewClientStream(ctx, &_CustomerService_serviceDesc.Streams[0], c.cc, "/proto.CustomerService/ListPerson", opts...)
+func (c *customerServiceClient) ListPersons(ctx context.Context, in *RequestType, opts ...grpc.CallOption) (CustomerService_ListPersonsClient, error) {
+	stream, err := grpc.NewClientStream(ctx, &_CustomerService_serviceDesc.Streams[0], c.cc, "/proto.CustomerService/ListPersons", opts...)
 	if err != nil {
 		return nil, err
 	}
-	x := &customerServiceListPersonClient{stream}
+	x := &customerServiceListPersonsClient{stream}
 	if err := x.ClientStream.SendMsg(in); err != nil {
 		return nil, err
 	}
@@ -105,16 +105,16 @@ func (c *customerServiceClient) ListPerson(ctx context.Context, in *RequestType,
 	return x, nil
 }
 
-type CustomerService_ListPersonClient interface {
+type CustomerService_ListPersonsClient interface {
 	Recv() (*Person, error)
 	grpc.ClientStream
 }
 
-type customerServiceListPersonClient struct {
+type customerServiceListPersonsClient struct {
 	grpc.ClientStream
 }
 
-func (x *customerServiceListPersonClient) Recv() (*Person, error) {
+func (x *customerServiceListPersonsClient) Recv() (*Person, error) {
 	m := new(Person)
 	if err := x.ClientStream.RecvMsg(m); err != nil {
 		return nil, err
@@ -161,7 +161,7 @@ func (c *customerServiceClient) DeletePerson(ctx context.Context, in *Person, op
 // Server API for CustomerService service
 
 type CustomerServiceServer interface {
-	ListPerson(*RequestType, CustomerService_ListPersonServer) error
+	ListPersons(*RequestType, CustomerService_ListPersonsServer) error
 	AddPerson(context.Context, *Person) (*ResponseType, error)
 	GetPerson(context.Context, *Person) (*ResponseType, error)
 	UpdatePerson(context.Context, *Person) (*ResponseType, error)
@@ -172,24 +172,24 @@ func RegisterCustomerServiceServer(s *grpc.Server, srv CustomerServiceServer) {
 	s.RegisterService(&_CustomerService_serviceDesc, srv)
 }
 
-func _CustomerService_ListPerson_Handler(srv interface{}, stream grpc.ServerStream) error {
+func _CustomerService_ListPersons_Handler(srv interface{}, stream grpc.ServerStream) error {
 	m := new(RequestType)
 	if err := stream.RecvMsg(m); err != nil {
 		return err
 	}
-	return srv.(CustomerServiceServer).ListPerson(m, &customerServiceListPersonServer{stream})
+	return srv.(CustomerServiceServer).ListPersons(m, &customerServiceListPersonsServer{stream})
 }
 
-type CustomerService_ListPersonServer interface {
+type CustomerService_ListPersonsServer interface {
 	Send(*Person) error
 	grpc.ServerStream
 }
 
-type customerServiceListPersonServer struct {
+type customerServiceListPersonsServer struct {
 	grpc.ServerStream
 }
 
-func (x *customerServiceListPersonServer) Send(m *Person) error {
+func (x *customerServiceListPersonsServer) Send(m *Person) error {
 	return x.ServerStream.SendMsg(m)
 }
 
@@ -264,8 +264,8 @@ var _CustomerService_serviceDesc = grpc.ServiceDesc{
 	},
 	Streams: []grpc.StreamDesc{
 		{
-			StreamName:    "ListPerson",
-			Handler:       _CustomerService_ListPerson_Handler,
+			StreamName:    "ListPersons",
+			Handler:       _CustomerService_ListPersons_Handler,
 			ServerStreams: true,
 		},
 	},
