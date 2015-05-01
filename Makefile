@@ -60,6 +60,9 @@ test t:
 	make run
 	make client
 
+clean:
+	rm -f client/client server/server
+
 git-push gpush gu:
 	git init
 	git add *
