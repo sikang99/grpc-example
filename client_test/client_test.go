@@ -11,7 +11,7 @@ import (
 
 var address string = "127.0.0.1:11111"
 
-func TestListPersons(t *testing.T) {
+func TestCustomerService(t *testing.T) {
 	conn, err := grpc.Dial(address)
 	if err != nil {
 		t.Errorf("connect error %v\n", err)

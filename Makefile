@@ -58,10 +58,8 @@ kill k:
 	killall server
 
 test t:
-	make proto
-	make build
-	make run
-	make client
+	make server
+	cd client_test && go test -v	
 
 clean:
 	rm -f client/client server/server
