@@ -1,6 +1,6 @@
 # Static http/https server
 
-Simple gRPC example
+Simple gRPC service example
 
 ## Install
 
@@ -8,7 +8,7 @@ Simple gRPC example
 
 ## Usage
 
-refer Makefile to know how to use
+refer Makefile if you know how to use.
 	
 	$ make 
 	Makefile for grpc-example, by Stoney Kang, sikang99@gmail.com
@@ -20,7 +20,7 @@ refer Makefile to know how to use
    	- kill  : stop the server
 
 
-compile IDL proto of gRPC
+compile IDL proto of gRPC.
 	
 	$ make proto
 
@@ -31,8 +31,12 @@ build client and server programs
 run and test the service
 	
 	$ make run
+	$ make test
 
-## Options
+## History
+
+- 2015/05/01 : list support search with condition optionally
+- 2015/04/30 : start to code with mattn/grpc-example
 
 
 ## References

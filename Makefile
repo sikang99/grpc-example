@@ -44,7 +44,7 @@ client rc:
 	./client/client get 1 
 	./client/client get 2 
 	./client/client update 1 younga 48 
-	./client/client list
+	./client/client list 48
 
 server rs:
 	./server/server &
@@ -61,7 +61,7 @@ test t:
 git-push gpush gu:
 	git init
 	git add *
-	git commit -m "define RESTful CRUD stype proto"
+	git commit -m "support list with conditon"
 	git push -u https://sikang99@github.com/sikang99/$(PROGRAM) master
 	#chromium-browser https://github.com/sikang99/$(PROGRAM)
 

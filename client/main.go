@@ -13,6 +13,40 @@ import (
 
 var address string = "127.0.0.1:11111"
 
+func list(age int) error {
+	conn, err := grpc.Dial(address)
+	if err != nil {
+		return err
+	}
+	defer conn.Close()
+
+	client := pb.NewCustomerServiceClient(conn)
+
+	req := &pb.RequestType{}
+	if age > 0 {
+		ps := &pb.Person{
+			Age: int32(age),
+		}
+		req.Man = ps
+	}
+
+	stream, err := client.ListPerson(context.Background(), req)
+	if err != nil {
+		return err
+	}
+	for {
+		person, err := stream.Recv()
+		if err == io.EOF {
+			break
+		}
+		if err != nil {
+			return err
+		}
+		fmt.Printf("List: %v\n", person)
+	}
+	return nil
+}
+
 func add(name string, age int) error {
 	conn, err := grpc.Dial(address)
 	if err != nil {
@@ -88,42 +122,19 @@ func update(id int, name string, age int) error {
 	return err
 }
 
-func list() error {
-	conn, err := grpc.Dial(address)
-	if err != nil {
-		return err
-	}
-	defer conn.Close()
-
-	client := pb.NewCustomerServiceClient(conn)
-
-	req := &pb.RequestType{}
-
-	stream, err := client.ListPerson(context.Background(), req)
-	if err != nil {
-		return err
-	}
-	for {
-		person, err := stream.Recv()
-		if err == io.EOF {
-			break
-		}
-		if err != nil {
-			return err
-		}
-		fmt.Printf("List: %v\n", person)
-	}
-	return nil
-}
-
 // client main function
 func main() {
 	(&sc.Cmds{
 		{
 			Name: "list",
-			Desc: "list: listing person",
+			Desc: "list [age]: list person(s), optinally with age",
 			Run: func(c *sc.C, args []string) error {
-				return list()
+				if len(args) == 1 {
+					age, _ := strconv.Atoi(args[0])
+					return list(age)
+				} else {
+					return list(0)
+				}
 			},
 		},
 		{
