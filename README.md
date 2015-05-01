@@ -11,7 +11,14 @@ Simple gRPC example
 refer Makefile to know how to use
 	
 	$ make 
-	make [proto|build|run|kill]
+	Makefile for grpc-example, by Stoney Kang, sikang99@gmail.com
+
+	make [proto|build|run|kill|test]
+   	- proto : compile interface spec
+   	- build : compile client/server
+   	- run   : start the server and exec client
+   	- kill  : stop the server
+
 
 compile IDL proto of gRPC
 	
