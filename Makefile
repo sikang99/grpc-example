@@ -46,7 +46,7 @@ client rc:
 	./client/client get 2 
 	./client/client update 1 younga 48 
 	./client/client list
-	./client/client list 48
+	./client/client list 19
 
 server rs:
 	./server/server &

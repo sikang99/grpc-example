@@ -11,9 +11,9 @@ import (
 )
 
 type customerService struct {
-	customers map[int]*pb.Person
-	id        int // current unique id number
-	sync.Mutex
+	customers  map[int]*pb.Person
+	id         int // current unique id number
+	sync.Mutex     // RWLock
 }
 
 func NewCustomerService() *customerService {

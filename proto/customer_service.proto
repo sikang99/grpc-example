@@ -19,7 +19,7 @@ message RequestType {
 }
 
 message Person {
-  int32 id = 1;
+  int32  id = 1;	// used as the key
   string name = 2;
-  int32 age  = 3;
+  int32  age  = 3;
 }
