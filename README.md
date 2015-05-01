@@ -6,7 +6,7 @@
 
 ## Development
 
-refer `Makefile` if you know how to use.
+refer `Makefile` if you know how to build, use, and test.
 	
 	$ make 
 	Makefile for grpc-example, by Stoney Kang, sikang99@gmail.com
