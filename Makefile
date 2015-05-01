@@ -63,7 +63,7 @@ test t:
 git-push gpush gu:
 	git init
 	git add *
-	git commit -m "support list with conditon"
+	git commit -m "sorted by key = id"
 	git push -u https://sikang99@github.com/sikang99/$(PROGRAM) master
 	#chromium-browser https://github.com/sikang99/$(PROGRAM)
 

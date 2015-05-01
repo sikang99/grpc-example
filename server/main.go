@@ -3,6 +3,7 @@ package main
 import (
 	"log"
 	"net"
+	"sort"
 	"sync"
 
 	pb "../proto"
@@ -36,7 +37,30 @@ func (cs *customerService) ListPersons(p *pb.RequestType, stream pb.CustomerServ
 		age = int(p.Man.Age)
 	}
 
-	for _, ps := range cs.customers {
+	/*
+		for _, ps := range cs.customers {
+			// conditional listing
+			if age > 0 && int(ps.Age) != age {
+				continue
+			}
+			if err := stream.Send(ps); err != nil {
+				return err
+			}
+		}
+	*/
+
+	var keys []int
+	for k := range cs.customers {
+		keys = append(keys, k)
+	}
+
+	//fmt.Println(keys)
+	sort.Sort(sort.IntSlice(keys))
+	//fmt.Println(keys)
+
+	for _, key := range keys {
+		ps := cs.customers[key]
+
 		// conditional listing
 		if age > 0 && int(ps.Age) != age {
 			continue
@@ -45,6 +69,7 @@ func (cs *customerService) ListPersons(p *pb.RequestType, stream pb.CustomerServ
 			return err
 		}
 	}
+
 	return nil
 }
 
