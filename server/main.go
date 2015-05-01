@@ -26,12 +26,22 @@ func NewCustomerService() *customerService {
 }
 
 func (cs *customerService) ListPerson(p *pb.RequestType, stream pb.CustomerService_ListPersonServer) error {
-	log.Println("list")
+	log.Printf("list %v\n", p.Man)
 	cs.Lock()
 	defer cs.Unlock()
 
-	for _, p := range cs.customers {
-		if err := stream.Send(p); err != nil {
+	// check the condition
+	var age int
+	if p.Man != nil {
+		age = int(p.Man.Age)
+	}
+
+	for _, ps := range cs.customers {
+		// conditional listing
+		if age > 0 && int(ps.Age) != age {
+			continue
+		}
+		if err := stream.Send(ps); err != nil {
 			return err
 		}
 	}

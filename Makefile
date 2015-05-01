@@ -39,11 +39,13 @@ run r:
 client rc:
 	./client/client add stoney 52
 	./client/client add mandoo 19
+	./client/client add namoo 25
 	./client/client list
 	./client/client delete 2 
 	./client/client get 1 
 	./client/client get 2 
 	./client/client update 1 younga 48 
+	./client/client list
 	./client/client list 48
 
 server rs:
