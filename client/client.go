@@ -138,17 +138,6 @@ func main() {
 			},
 		},
 		{
-			Name: "get",
-			Desc: "get [id]: get person",
-			Run: func(c *sc.C, args []string) error {
-				if len(args) != 1 {
-					return sc.UsageError
-				}
-				id, _ := strconv.Atoi(args[0])
-				return get(id)
-			},
-		},
-		{
 			Name: "add",
 			Desc: "add [name] [age]: add person",
 			Run: func(c *sc.C, args []string) error {
@@ -164,14 +153,14 @@ func main() {
 			},
 		},
 		{
-			Name: "delete",
-			Desc: "delete [id]: delete person",
+			Name: "get",
+			Desc: "get [id]: get person",
 			Run: func(c *sc.C, args []string) error {
 				if len(args) != 1 {
 					return sc.UsageError
 				}
 				id, _ := strconv.Atoi(args[0])
-				return delete(id)
+				return get(id)
 			},
 		},
 		{
@@ -188,6 +177,17 @@ func main() {
 					return err
 				}
 				return update(id, name, age)
+			},
+		},
+		{
+			Name: "delete",
+			Desc: "delete [id]: delete person",
+			Run: func(c *sc.C, args []string) error {
+				if len(args) != 1 {
+					return sc.UsageError
+				}
+				id, _ := strconv.Atoi(args[0])
+				return delete(id)
 			},
 		},
 	}).Run(&sc.C{

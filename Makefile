@@ -14,18 +14,18 @@ epg:
 	vi proto/$(SERVICE).pb.go
 
 ec:
-	vi client/main.go
+	vi client/client.go
 
 es:
-	vi server/main.go
+	vi server/server.go
 
 proto p:
 	$(PROTOC) -I./proto ./proto/$(SERVICE).proto --go_out=plugins=grpc:proto
 	@ls -al ./proto
 
 build b:
-	go build -o client/client client/main.go
-	go build -o server/server server/main.go
+	go build -o client/client client/client.go
+	go build -o server/server server/server.go
 
 rebuild:
 	make proto
