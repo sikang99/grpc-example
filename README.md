@@ -6,7 +6,7 @@ Simple gRPC service example
 
     $ go get github.com/sikang99/grpc-example
 
-## Usage
+## Development
 
 refer Makefile if you know how to use.
 	
@@ -32,6 +32,15 @@ run and test the service
 	
 	$ make run
 	$ make test
+
+## Usage
+
+	$ server/server &
+	$ client/client add [name] [age]
+	$ client/client get [id]
+	$ client/client update [id]
+	$ client/client delete [id]
+	$ client/client list [age]
 
 ## History
 
