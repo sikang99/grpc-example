@@ -50,6 +50,7 @@ start to run the server and use any number of clients
 
 ## References
 
+- [Testing Techniques, Google I/O 2014](https://talks.golang.org/2014/testing.slide#1)
 - [Bolt — an embedded key/value database for Go](https://www.progville.com/go/bolt-embedded-db-golang/)
 - [Golang : How to reverse elements order in map?](https://www.socketloop.com/tutorials/golang-how-to-reverse-elements-order-in-map)
 - [gRPC-JSON Proxy](http://yugui.jp/articles/889)

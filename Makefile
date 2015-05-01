@@ -16,6 +16,9 @@ epg:
 ec:
 	vi client/client.go
 
+ect:
+	vi client/client_test.go
+
 es:
 	vi server/server.go
 
@@ -64,6 +67,7 @@ clean:
 	rm -f client/client server/server
 
 git-push gpush gu:
+	make clean
 	git init
 	git add *
 	git commit -m "sorted by key = id"
