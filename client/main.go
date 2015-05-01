@@ -26,7 +26,9 @@ func add(name string, age int) error {
 		Name: name,
 		Age:  int32(age),
 	}
-	_, err = client.AddPerson(context.Background(), person)
+
+	res, err := client.AddPerson(context.Background(), person)
+	fmt.Printf("Add: %v\n", res.Man)
 	return err
 }
 
@@ -42,7 +44,9 @@ func get(id int) error {
 	person := &pb.Person{
 		Id: int32(id),
 	}
-	_, err = client.GetPerson(context.Background(), person)
+
+	res, err := client.GetPerson(context.Background(), person)
+	fmt.Printf("Get (%d): %v\n", id, res.Man)
 	return err
 }
 
@@ -58,7 +62,9 @@ func delete(id int) error {
 	person := &pb.Person{
 		Id: int32(id),
 	}
-	_, err = client.DeletePerson(context.Background(), person)
+
+	res, err := client.DeletePerson(context.Background(), person)
+	fmt.Printf("Delete (%d): %v\n", id, res.Man)
 	return err
 }
 
@@ -76,7 +82,9 @@ func update(id int, name string, age int) error {
 		Name: name,
 		Age:  int32(age),
 	}
-	_, err = client.UpdatePerson(context.Background(), person)
+
+	res, err := client.UpdatePerson(context.Background(), person)
+	fmt.Printf("Update (%d): %v\n", id, res.Man)
 	return err
 }
 
@@ -103,11 +111,12 @@ func list() error {
 		if err != nil {
 			return err
 		}
-		fmt.Println(person)
+		fmt.Printf("List: %v\n", person)
 	}
 	return nil
 }
 
+// client main function
 func main() {
 	(&sc.Cmds{
 		{

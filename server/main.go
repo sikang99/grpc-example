@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"net"
 	"sync"
@@ -44,14 +43,15 @@ func (cs *customerService) GetPerson(c context.Context, p *pb.Person) (*pb.Respo
 	cs.Lock()
 	defer cs.Unlock()
 
+	resp := new(pb.ResponseType)
+
 	ps, ok := cs.customers[int(p.Id)]
 	if ok {
-		fmt.Printf("%v\n", ps)
-	} else {
-		log.Printf("%d is not found\n", p.Id)
+		resp.Man = ps
 	}
 
-	return new(pb.ResponseType), nil
+	log.Printf("%v\n", resp.Man)
+	return resp, nil
 }
 
 func (cs *customerService) AddPerson(c context.Context, p *pb.Person) (*pb.ResponseType, error) {
@@ -63,7 +63,15 @@ func (cs *customerService) AddPerson(c context.Context, p *pb.Person) (*pb.Respo
 	cs.customers[int(p.Id)] = p
 	cs.id++
 
-	return new(pb.ResponseType), nil
+	resp := new(pb.ResponseType)
+
+	ps, ok := cs.customers[int(p.Id)]
+	if ok {
+		resp.Man = ps
+	}
+
+	log.Printf("%v\n", resp.Man)
+	return resp, nil
 }
 
 func (cs *customerService) DeletePerson(c context.Context, p *pb.Person) (*pb.ResponseType, error) {
@@ -71,9 +79,16 @@ func (cs *customerService) DeletePerson(c context.Context, p *pb.Person) (*pb.Re
 	cs.Lock()
 	defer cs.Unlock()
 
-	delete(cs.customers, int(p.Id))
+	resp := new(pb.ResponseType)
 
-	return new(pb.ResponseType), nil
+	ps, ok := cs.customers[int(p.Id)]
+	if ok {
+		resp.Man = ps
+		delete(cs.customers, int(p.Id))
+	}
+
+	log.Printf("%v\n", resp.Man)
+	return resp, nil
 }
 
 func (cs *customerService) UpdatePerson(c context.Context, p *pb.Person) (*pb.ResponseType, error) {
@@ -81,16 +96,22 @@ func (cs *customerService) UpdatePerson(c context.Context, p *pb.Person) (*pb.Re
 	cs.Lock()
 	defer cs.Unlock()
 
+	resp := new(pb.ResponseType)
+
 	_, ok := cs.customers[int(p.Id)]
 	if ok {
 		cs.customers[int(p.Id)] = p
-	} else {
-		log.Printf("%d is not found\n", p.Id)
+		ps, ok := cs.customers[int(p.Id)]
+		if ok {
+			resp.Man = ps
+		}
 	}
 
-	return new(pb.ResponseType), nil
+	log.Printf("%v\n", resp.Man)
+	return resp, nil
 }
 
+// server function
 func main() {
 	lis, err := net.Listen("tcp", ":11111")
 	if err != nil {
