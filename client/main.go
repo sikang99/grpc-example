@@ -11,8 +11,10 @@ import (
 	"google.golang.org/grpc"
 )
 
+var address string = "127.0.0.1:11111"
+
 func add(name string, age int) error {
-	conn, err := grpc.Dial("127.0.0.1:11111")
+	conn, err := grpc.Dial(address)
 	if err != nil {
 		return err
 	}
@@ -29,7 +31,7 @@ func add(name string, age int) error {
 }
 
 func get(id int) error {
-	conn, err := grpc.Dial("127.0.0.1:11111")
+	conn, err := grpc.Dial(address)
 	if err != nil {
 		return err
 	}
@@ -45,7 +47,7 @@ func get(id int) error {
 }
 
 func delete(id int) error {
-	conn, err := grpc.Dial("127.0.0.1:11111")
+	conn, err := grpc.Dial(address)
 	if err != nil {
 		return err
 	}
@@ -61,7 +63,7 @@ func delete(id int) error {
 }
 
 func update(id int, name string, age int) error {
-	conn, err := grpc.Dial("127.0.0.1:11111")
+	conn, err := grpc.Dial(address)
 	if err != nil {
 		return err
 	}
@@ -79,18 +81,17 @@ func update(id int, name string, age int) error {
 }
 
 func list() error {
-	conn, err := grpc.Dial("127.0.0.1:11111")
+	conn, err := grpc.Dial(address)
 	if err != nil {
 		return err
 	}
 	defer conn.Close()
+
 	client := pb.NewCustomerServiceClient(conn)
 
-	req := &pb.RequestType{
-		Op: "match",
-	}
+	req := &pb.RequestType{}
+
 	stream, err := client.ListPerson(context.Background(), req)
-	//stream, err := client.ListPerson(context.Background(), new(pb.RequestType))
 	if err != nil {
 		return err
 	}

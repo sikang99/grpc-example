@@ -30,19 +30,34 @@ var _ grpc.ClientConn
 var _ = proto1.Marshal
 
 type ResponseType struct {
+	Man *Person `protobuf:"bytes,1,opt,name=man" json:"man,omitempty"`
 }
 
 func (m *ResponseType) Reset()         { *m = ResponseType{} }
 func (m *ResponseType) String() string { return proto1.CompactTextString(m) }
 func (*ResponseType) ProtoMessage()    {}
 
+func (m *ResponseType) GetMan() *Person {
+	if m != nil {
+		return m.Man
+	}
+	return nil
+}
+
 type RequestType struct {
-	Op string `protobuf:"bytes,1,opt,name=op" json:"op,omitempty"`
+	Man *Person `protobuf:"bytes,1,opt,name=man" json:"man,omitempty"`
 }
 
 func (m *RequestType) Reset()         { *m = RequestType{} }
 func (m *RequestType) String() string { return proto1.CompactTextString(m) }
 func (*RequestType) ProtoMessage()    {}
+
+func (m *RequestType) GetMan() *Person {
+	if m != nil {
+		return m.Man
+	}
+	return nil
+}
 
 type Person struct {
 	Id   int32  `protobuf:"varint,1,opt,name=id" json:"id,omitempty"`
