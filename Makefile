@@ -17,7 +17,7 @@ ec:
 	vi client/client.go
 
 ect:
-	vi client/client_test.go
+	vi client_test/client_test.go
 
 es:
 	vi server/server.go
@@ -70,7 +70,7 @@ git-push gpush gu:
 	make clean
 	git init
 	git add *
-	git commit -m "sorted by key = id"
+	git commit -m "start to code testing functions"
 	git push -u https://sikang99@github.com/sikang99/$(PROGRAM) master
 	#chromium-browser https://github.com/sikang99/$(PROGRAM)
 

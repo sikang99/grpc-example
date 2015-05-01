@@ -48,7 +48,7 @@ start to run the server and use any number of clients
 - 2015/04/30 : start to code with mattn/grpc-example
 
 
-## References
+## Reference
 
 - [Testing Techniques, Google I/O 2014](https://talks.golang.org/2014/testing.slide#1)
 - [Bolt — an embedded key/value database for Go](https://www.progville.com/go/bolt-embedded-db-golang/)
