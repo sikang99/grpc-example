@@ -6,7 +6,7 @@
 
 ## Development
 
-refer Makefile if you know how to use.
+refer `Makefile` if you know how to use.
 	
 	$ make 
 	Makefile for grpc-example, by Stoney Kang, sikang99@gmail.com
@@ -32,6 +32,8 @@ run and test the service
 	$ make test
 
 ## Usage
+
+start to run the server and use any number of clients
 
 	$ server/server &
 	$ client/client add [name] [age]
