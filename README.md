@@ -1,6 +1,4 @@
-# Static http/https server
-
-Simple gRPC service example
+# Simple gRPC service example
 
 ## Install
 
