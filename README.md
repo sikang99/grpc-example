@@ -50,6 +50,7 @@ start to run the server and use any number of clients
 
 ## References
 
+- [Golang : How to reverse elements order in map?](https://www.socketloop.com/tutorials/golang-how-to-reverse-elements-order-in-map)
 - [gRPC-JSON Proxy](http://yugui.jp/articles/889)
 - [Protocol Buffers を利用した RPC、gRPC を golang から試してみ](http://mattn.kaoriya.net/software/lang/go/20150227144125.htm) 
 - [mattn/grpc-example](https://github.com/mattn/grpc-example)
