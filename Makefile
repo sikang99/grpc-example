@@ -14,13 +14,13 @@ epg:
 	vi proto/$(SERVICE).pb.go
 
 ec:
-	vi client/client.go
-
-ect:
 	vi client_test/client_test.go
 
 es:
 	vi server/server.go
+
+et:
+	vi test/test.go
 
 proto p:
 	$(PROTOC) -I./proto ./proto/$(SERVICE).proto --go_out=plugins=grpc:proto
@@ -59,7 +59,7 @@ kill k:
 
 test t:
 	@make server
-	cd client_test && go test -v	
+	cd test && go test -v	
 	@make kill
 
 clean:
@@ -69,7 +69,7 @@ git-push gpush gu:
 	make clean
 	git init
 	git add *
-	git commit -m "start to code testing functions"
+	git commit -m "refactor sources"
 	git push -u https://sikang99@github.com/sikang99/$(PROGRAM) master
 	#chromium-browser https://github.com/sikang99/$(PROGRAM)
 
