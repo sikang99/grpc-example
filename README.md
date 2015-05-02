@@ -1,5 +1,11 @@
 # Simple gRPC service example
 
+It require the new version of protobuf supporting proto3 and grpc.
+First check the protoc compiler by doing like following.
+
+	$ protoc --version
+	libprotoc 3.0.0
+
 ## Install
 
     $ go get github.com/sikang99/grpc-example
