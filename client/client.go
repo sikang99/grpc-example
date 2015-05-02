@@ -27,7 +27,7 @@ func list(age int) error {
 		ps := &pb.Person{
 			Age: int32(age),
 		}
-		req.Man = ps
+		req.Person = ps
 	}
 
 	stream, err := client.ListPersons(context.Background(), req)
@@ -62,7 +62,7 @@ func add(name string, age int) error {
 	}
 
 	res, err := client.AddPerson(context.Background(), person)
-	fmt.Printf("Add: %v\n", res.Man)
+	fmt.Printf("Add: %v\n", res.Person)
 	return err
 }
 
@@ -80,7 +80,7 @@ func get(id int) error {
 	}
 
 	res, err := client.GetPerson(context.Background(), person)
-	fmt.Printf("Get (%d): %v\n", id, res.Man)
+	fmt.Printf("Get (%d): %v\n", id, res.Person)
 	return err
 }
 
@@ -98,7 +98,7 @@ func delete(id int) error {
 	}
 
 	res, err := client.DeletePerson(context.Background(), person)
-	fmt.Printf("Delete (%d): %v\n", id, res.Man)
+	fmt.Printf("Delete (%d): %v\n", id, res.Person)
 	return err
 }
 
@@ -118,7 +118,7 @@ func update(id int, name string, age int) error {
 	}
 
 	res, err := client.UpdatePerson(context.Background(), person)
-	fmt.Printf("Update (%d): %v\n", id, res.Man)
+	fmt.Printf("Update (%d): %v\n", id, res.Person)
 	return err
 }
 

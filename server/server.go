@@ -29,15 +29,15 @@ func NewCustomerService() *customerService {
 }
 
 func (cs *customerService) ListPersons(p *pb.RequestType, stream pb.CustomerService_ListPersonsServer) error {
-	log.Printf("list (%v)\n", p.Man)
+	log.Printf("list (%v)\n", p.Person)
 
 	cs.Lock()
 	defer cs.Unlock()
 
 	// check the condition
 	var age int
-	if p.Man != nil {
-		age = int(p.Man.Age)
+	if p.Person != nil {
+		age = int(p.Person.Age)
 	}
 
 	/*
@@ -85,10 +85,10 @@ func (cs *customerService) GetPerson(c context.Context, p *pb.Person) (*pb.Respo
 
 	ps, ok := cs.customers[int(p.Id)]
 	if ok {
-		resp.Man = ps
+		resp.Person = ps
 	}
 
-	log.Printf("%v\n", resp.Man)
+	log.Printf("%v\n", resp.Person)
 	return resp, nil
 }
 
@@ -105,10 +105,10 @@ func (cs *customerService) AddPerson(c context.Context, p *pb.Person) (*pb.Respo
 
 	ps, ok := cs.customers[int(p.Id)]
 	if ok {
-		resp.Man = ps
+		resp.Person = ps
 	}
 
-	log.Printf("%v\n", resp.Man)
+	log.Printf("%v\n", resp.Person)
 	return resp, nil
 }
 
@@ -121,11 +121,11 @@ func (cs *customerService) DeletePerson(c context.Context, p *pb.Person) (*pb.Re
 
 	ps, ok := cs.customers[int(p.Id)]
 	if ok {
-		resp.Man = ps
+		resp.Person = ps
 		delete(cs.customers, int(p.Id))
 	}
 
-	log.Printf("%v\n", resp.Man)
+	log.Printf("%v\n", resp.Person)
 	return resp, nil
 }
 
@@ -141,11 +141,11 @@ func (cs *customerService) UpdatePerson(c context.Context, p *pb.Person) (*pb.Re
 		cs.customers[int(p.Id)] = p
 		ps, ok := cs.customers[int(p.Id)]
 		if ok {
-			resp.Man = ps
+			resp.Person = ps
 		}
 	}
 
-	log.Printf("%v\n", resp.Man)
+	log.Printf("%v\n", resp.Person)
 	return resp, nil
 }
 
