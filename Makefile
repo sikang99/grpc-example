@@ -69,7 +69,7 @@ git-push gpush gu:
 	make clean
 	git init
 	git add *
-	git commit -m "refactor sources"
+	git commit -m "more load tests"
 	git push -u https://sikang99@github.com/sikang99/$(PROGRAM) master
 	#chromium-browser https://github.com/sikang99/$(PROGRAM)
 

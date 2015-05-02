@@ -2,7 +2,9 @@ package load
 
 import (
 	"io"
+	"sync"
 	"testing"
+	"time"
 
 	pb "../proto"
 	"golang.org/x/net/context"
@@ -103,10 +105,16 @@ func TestLoadForCustomerService(t *testing.T) {
 		Age:  502,
 	}
 
-	for i := 0; i < 100; i++ {
+	var n int = 100
+
+	for i := 0; i < n; i++ {
 		res, err := client.AddPerson(context.Background(), person)
 		if err != nil {
 			t.Errorf("Add: %v\n", err)
+		}
+
+		if res.Person == nil || res.Person.Id == 0 {
+			t.Errorf("data error %v\n", res)
 		}
 
 		person.Id = res.Person.Id
@@ -118,7 +126,7 @@ func TestLoadForCustomerService(t *testing.T) {
 		}
 
 		if res.Person.Age != person.Age {
-			t.Errorf("Mismatch: %v\n", err)
+			t.Errorf("mismatch error %v\n", res)
 		}
 
 		res, err = client.DeletePerson(context.Background(), person)
@@ -127,7 +135,7 @@ func TestLoadForCustomerService(t *testing.T) {
 		}
 
 		if res.Person.Id != person.Id {
-			t.Errorf("Mismatch: %v\n", err)
+			t.Errorf("mismatch error %v\n", res)
 		}
 
 		res, err = client.GetPerson(context.Background(), person)
@@ -136,7 +144,29 @@ func TestLoadForCustomerService(t *testing.T) {
 		}
 
 		if res.Person != nil {
-			t.Errorf("Data: %v\n", err)
+			t.Errorf("data error %v\n", res)
 		}
 	}
+
+	t.Logf("result: %d tries\n", n)
+}
+
+// test for concurrent access of clients to a server
+func TestParallelForCustomerService(t *testing.T) {
+	var wg sync.WaitGroup
+	var n int = 5
+
+	for i := 0; i < n; i++ {
+		wg.Add(1)
+		go TestBaseForCustomerService(t)
+
+	}
+
+	time.Sleep(1 * time.Second)
+
+	for i := 0; i < n; i++ {
+		wg.Done()
+	}
+
+	wg.Wait()
 }
