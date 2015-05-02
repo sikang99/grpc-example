@@ -42,6 +42,10 @@ start to run the server and use any number of clients
 	$ client/client delete [id]
 	$ client/client list [age]
 
+## Roadmap
+
+- integrate client and server into one program
+
 ## History
 
 - 2015/05/02 : add code for server testing by client
