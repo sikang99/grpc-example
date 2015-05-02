@@ -58,11 +58,12 @@ kill k:
 	killall server
 
 test t:
-	make server
+	@make server
 	cd client_test && go test -v	
+	@make kill
 
 clean:
-	rm -f client/client server/server
+	rm -f client/client server/server person.db
 
 git-push gpush gu:
 	make clean

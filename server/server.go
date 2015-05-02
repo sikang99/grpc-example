@@ -6,6 +6,8 @@ import (
 	"sort"
 	"sync"
 
+	"github.com/boltdb/bolt"
+
 	pb "../proto"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
@@ -149,6 +151,12 @@ func (cs *customerService) UpdatePerson(c context.Context, p *pb.Person) (*pb.Re
 
 // server function
 func main() {
+	db, err := bolt.Open("person.db", 0600, nil)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer db.Close()
+
 	lis, err := net.Listen("tcp", ":11111")
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)
