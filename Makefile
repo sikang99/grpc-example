@@ -20,7 +20,7 @@ es:
 	vi server/server.go
 
 et:
-	vi test/test.go
+	vi test/load_test.go
 
 proto p:
 	$(PROTOC) -I./proto ./proto/$(SERVICE).proto --go_out=plugins=grpc:proto
@@ -72,6 +72,11 @@ git-push gpush gu:
 	git commit -m "refactor sources"
 	git push -u https://sikang99@github.com/sikang99/$(PROGRAM) master
 	#chromium-browser https://github.com/sikang99/$(PROGRAM)
+
+git-status gs:
+	git status
+	git log --oneline -5
+
 
 readme md:
 	vi README.md
