@@ -76,6 +76,7 @@ func init() {
 
 type CustomerServiceClient interface {
 	ListPersons(ctx context.Context, in *RequestType, opts ...grpc.CallOption) (CustomerService_ListPersonsClient, error)
+	PurgePersons(ctx context.Context, in *RequestType, opts ...grpc.CallOption) (CustomerService_PurgePersonsClient, error)
 	AddPerson(ctx context.Context, in *Person, opts ...grpc.CallOption) (*ResponseType, error)
 	GetPerson(ctx context.Context, in *Person, opts ...grpc.CallOption) (*ResponseType, error)
 	UpdatePerson(ctx context.Context, in *Person, opts ...grpc.CallOption) (*ResponseType, error)
@@ -115,6 +116,38 @@ type customerServiceListPersonsClient struct {
 }
 
 func (x *customerServiceListPersonsClient) Recv() (*Person, error) {
+	m := new(Person)
+	if err := x.ClientStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
+func (c *customerServiceClient) PurgePersons(ctx context.Context, in *RequestType, opts ...grpc.CallOption) (CustomerService_PurgePersonsClient, error) {
+	stream, err := grpc.NewClientStream(ctx, &_CustomerService_serviceDesc.Streams[1], c.cc, "/proto.CustomerService/PurgePersons", opts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &customerServicePurgePersonsClient{stream}
+	if err := x.ClientStream.SendMsg(in); err != nil {
+		return nil, err
+	}
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
+	return x, nil
+}
+
+type CustomerService_PurgePersonsClient interface {
+	Recv() (*Person, error)
+	grpc.ClientStream
+}
+
+type customerServicePurgePersonsClient struct {
+	grpc.ClientStream
+}
+
+func (x *customerServicePurgePersonsClient) Recv() (*Person, error) {
 	m := new(Person)
 	if err := x.ClientStream.RecvMsg(m); err != nil {
 		return nil, err
@@ -162,6 +195,7 @@ func (c *customerServiceClient) DeletePerson(ctx context.Context, in *Person, op
 
 type CustomerServiceServer interface {
 	ListPersons(*RequestType, CustomerService_ListPersonsServer) error
+	PurgePersons(*RequestType, CustomerService_PurgePersonsServer) error
 	AddPerson(context.Context, *Person) (*ResponseType, error)
 	GetPerson(context.Context, *Person) (*ResponseType, error)
 	UpdatePerson(context.Context, *Person) (*ResponseType, error)
@@ -190,6 +224,27 @@ type customerServiceListPersonsServer struct {
 }
 
 func (x *customerServiceListPersonsServer) Send(m *Person) error {
+	return x.ServerStream.SendMsg(m)
+}
+
+func _CustomerService_PurgePersons_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(RequestType)
+	if err := stream.RecvMsg(m); err != nil {
+		return err
+	}
+	return srv.(CustomerServiceServer).PurgePersons(m, &customerServicePurgePersonsServer{stream})
+}
+
+type CustomerService_PurgePersonsServer interface {
+	Send(*Person) error
+	grpc.ServerStream
+}
+
+type customerServicePurgePersonsServer struct {
+	grpc.ServerStream
+}
+
+func (x *customerServicePurgePersonsServer) Send(m *Person) error {
 	return x.ServerStream.SendMsg(m)
 }
 
@@ -266,6 +321,11 @@ var _CustomerService_serviceDesc = grpc.ServiceDesc{
 		{
 			StreamName:    "ListPersons",
 			Handler:       _CustomerService_ListPersons_Handler,
+			ServerStreams: true,
+		},
+		{
+			StreamName:    "PurgePersons",
+			Handler:       _CustomerService_PurgePersons_Handler,
 			ServerStreams: true,
 		},
 	},

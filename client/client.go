@@ -47,6 +47,41 @@ func list(age int) error {
 	return nil
 }
 
+func purge(age int) error {
+	conn, err := grpc.Dial(address)
+	if err != nil {
+		return err
+	}
+	defer conn.Close()
+
+	client := pb.NewCustomerServiceClient(conn)
+
+	req := &pb.RequestType{}
+	if age > 0 {
+		ps := &pb.Person{
+			Age: int32(age),
+		}
+		req.Person = ps
+	}
+
+	stream, err := client.PurgePersons(context.Background(), req)
+	if err != nil {
+		return err
+	}
+	for {
+		person, err := stream.Recv()
+		if err == io.EOF {
+			break
+		}
+		if err != nil {
+			return err
+		}
+		fmt.Printf("Purge: %v\n", person)
+	}
+
+	return nil
+}
+
 func add(name string, age int) error {
 	conn, err := grpc.Dial(address)
 	if err != nil {
@@ -138,6 +173,18 @@ func main() {
 			},
 		},
 		{
+			Name: "purge",
+			Desc: "purge [age]: purge person(s), optinally with age",
+			Run: func(c *sc.C, args []string) error {
+				if len(args) == 1 {
+					age, _ := strconv.Atoi(args[0])
+					return purge(age)
+				} else {
+					return purge(0)
+				}
+			},
+		},
+		{
 			Name: "add",
 			Desc: "add [name] [age]: add person",
 			Run: func(c *sc.C, args []string) error {
@@ -191,6 +238,6 @@ func main() {
 			},
 		},
 	}).Run(&sc.C{
-		Desc: "grpc example",
+		Desc: "guthub.com/sikang99/grpc-example",
 	})
 }

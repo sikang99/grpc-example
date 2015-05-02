@@ -14,7 +14,7 @@ epg:
 	vi proto/$(SERVICE).pb.go
 
 ec:
-	vi client_test/client_test.go
+	vi client/client.go
 
 es:
 	vi server/server.go
@@ -69,7 +69,7 @@ git-push gpush gu:
 	make clean
 	git init
 	git add *
-	git commit -m "more load tests"
+	git commit -m "add conditional purge function"
 	git push -u https://sikang99@github.com/sikang99/$(PROGRAM) master
 	#chromium-browser https://github.com/sikang99/$(PROGRAM)
 

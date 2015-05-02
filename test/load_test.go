@@ -90,6 +90,7 @@ func TestUtilsForCustomerService(t *testing.T) {
 	}
 }
 
+// test for mutiple requests of a client to a server
 func TestLoadForCustomerService(t *testing.T) {
 	// connect to rpc server
 	conn, err := grpc.Dial(address)
@@ -151,7 +152,7 @@ func TestLoadForCustomerService(t *testing.T) {
 	t.Logf("result: %d tries\n", n)
 }
 
-// test for concurrent access of clients to a server
+// test for concurrent accesses of multiple clients to a server
 func TestParallelForCustomerService(t *testing.T) {
 	var wg sync.WaitGroup
 	var n int = 5
