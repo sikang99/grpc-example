@@ -110,15 +110,33 @@ func TestLoadForCustomerService(t *testing.T) {
 		}
 
 		person.Id = res.Person.Id
+		person.Age += 1
+
+		res, err = client.UpdatePerson(context.Background(), person)
+		if err != nil {
+			t.Errorf("Update: %v\n", err)
+		}
+
+		if res.Person.Age != person.Age {
+			t.Errorf("Mismatch: %v\n", err)
+		}
 
 		res, err = client.DeletePerson(context.Background(), person)
 		if err != nil {
 			t.Errorf("Delete: %v\n", err)
 		}
 
+		if res.Person.Id != person.Id {
+			t.Errorf("Mismatch: %v\n", err)
+		}
+
 		res, err = client.GetPerson(context.Background(), person)
 		if err != nil {
 			t.Errorf("Get: %v\n", err)
+		}
+
+		if res.Person != nil {
+			t.Errorf("Data: %v\n", err)
 		}
 	}
 }
