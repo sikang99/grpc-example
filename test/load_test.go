@@ -163,9 +163,8 @@ func TestParallelForCustomerService(t *testing.T) {
 
 	}
 
-	time.Sleep(1 * time.Second)
-
 	for i := 0; i < n; i++ {
+		time.Sleep(100 * time.Millisecond)
 		wg.Done()
 	}
 

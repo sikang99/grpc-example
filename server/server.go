@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"log"
 	"net"
 	"sort"
@@ -15,16 +16,17 @@ import (
 
 type customerService struct {
 	customers  map[int]*pb.Person
-	id         int // current unique id number
-	sync.Mutex     // later change to RWLock
+	id         int // unique id number to assign
+	db         *bolt.DB
+	sync.Mutex // later change to sync.RWMutex
 }
 
 func NewCustomerService() *customerService {
 	cs := customerService{
-		customers: make(map[int]*pb.Person),
 		id:        1,
+		customers: make(map[int]*pb.Person),
+		db:        boltOpen("person.db"),
 	}
-
 	return &cs
 }
 
@@ -162,13 +164,13 @@ func (cs *customerService) UpdatePerson(c context.Context, p *pb.Person) (*pb.Re
 	return resp, nil
 }
 
+func init() {
+	_ = flag.String("-db", "person.db", "BoltDB name")
+}
+
 // server function
 func main() {
-	db, err := bolt.Open("person.db", 0600, nil)
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer db.Close()
+	flag.Parse()
 
 	lis, err := net.Listen("tcp", ":11111")
 	if err != nil {

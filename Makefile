@@ -19,6 +19,9 @@ ec:
 es:
 	vi server/server.go
 
+ed:
+	vi server/db.go
+
 et:
 	vi test/load_test.go
 
@@ -28,7 +31,7 @@ proto p:
 
 build b:
 	go build -o client/client client/client.go
-	go build -o server/server server/server.go
+	go build -o server/server ./server/*.go
 
 rebuild:
 	make proto
@@ -62,6 +65,9 @@ test t:
 	cd test && go test -v	
 	@make kill
 
+bolt:
+	bolt check person.db
+
 clean:
 	rm -f client/client server/server person.db
 
@@ -69,7 +75,7 @@ git-push gpush gu:
 	make clean
 	git init
 	git add *
-	git commit -m "add conditional purge function"
+	git commit -m "bolt db is used"
 	git push -u https://sikang99@github.com/sikang99/$(PROGRAM) master
 	#chromium-browser https://github.com/sikang99/$(PROGRAM)
 

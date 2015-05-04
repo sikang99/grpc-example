@@ -2,8 +2,8 @@
 
 ## Notice
 
-It require the new version of `protobuf` supporting `proto3` and `grpc`.
-First check the `protoc` compiler by doing like following.
+It requires the new version of `protobuf` supporting `proto3` and `grpc`.
+First, check the `protoc` compiler as follows.
 
 	$ protoc --version
 	libprotoc 3.0.0
@@ -63,7 +63,11 @@ start to run the server and use any number of clients
 
 ## Reference
 
+- [Travis-CI example for Go](https://github.com/atotto/travisci-golang-example)
+- [Learning Golang with Testing](http://jordenlowe.com/title/Learning_Golang_with_Testing)
+- [Making a RESTful JSON API in Go](http://thenewstack.io/make-a-restful-json-api-go/)
 - [Testing Techniques, Google I/O 2014](https://talks.golang.org/2014/testing.slide#1)
+- [PaulMaddox/golang-db-pool-pattern](https://github.com/PaulMaddox/golang-db-pool-pattern)
 - [Bolt — an embedded key/value database for Go](https://www.progville.com/go/bolt-embedded-db-golang/)
 - [Golang : How to reverse elements order in map?](https://www.socketloop.com/tutorials/golang-how-to-reverse-elements-order-in-map)
 - [gRPC-JSON Proxy](http://yugui.jp/articles/889)
