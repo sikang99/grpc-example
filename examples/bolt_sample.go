@@ -1,4 +1,5 @@
 /*
+- [Porter.io boltbd/bolt](https://porter.io/github.com/boltdb/bolt)
 - [Intro to BoltDB: Painless Performant Persistence](http://npf.io/2014/07/intro-to-boltdb-painless-performant-persistence/)
 - [Bolt — an embedded key/value database for Go](https://www.progville.com/go/bolt-embedded-db-golang/)
 - [Bolt README](https://github.com/boltdb/bolt/blob/master/README.md)
@@ -18,7 +19,8 @@ import (
 var world = []byte("world")
 
 func main() {
-	db, err := bolt.Open("sample.db", 0644, nil)
+	db, err := bolt.Open("sample.db", 0644, &bolt.Options{Timeout: 3 * time.Second})
+	//db, err := bolt.Open("sample.db", 0644, nil)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -57,16 +59,16 @@ func main() {
 	err = BoltListAll(db)
 
 	BoltState(db)
-	BoltMonitor(db)
+	BoltMonitor(db, 5*time.Second)
 }
 
-func BoltMonitor(db *bolt.DB) {
+func BoltMonitor(db *bolt.DB, t time.Duration) {
 	// Grab the initial stats.
 	prev := db.Stats()
 
 	for {
 		// Wait for 10s.
-		time.Sleep(10 * time.Second)
+		time.Sleep(t)
 
 		// Grab the current stats and diff them.
 		stats := db.Stats()

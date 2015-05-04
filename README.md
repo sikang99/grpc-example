@@ -57,6 +57,7 @@ start to run the server and use any number of clients
 
 ## History
 
+- 2015/05/04 : write handling funcs for boltdb
 - 2015/05/02 : add code for server testing by client
 - 2015/05/01 : list support search with condition optionally
 - 2015/04/30 : start to code with mattn/grpc-example
