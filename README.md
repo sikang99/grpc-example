@@ -68,6 +68,7 @@ start to run the server and use any number of clients
 - [Making a RESTful JSON API in Go](http://thenewstack.io/make-a-restful-json-api-go/)
 - [Testing Techniques, Google I/O 2014](https://talks.golang.org/2014/testing.slide#1)
 - [PaulMaddox/golang-db-pool-pattern](https://github.com/PaulMaddox/golang-db-pool-pattern)
+- [Going back to Go (golang)](http://paulosuzart.github.io/blog/2014/07/07/going-back-to-go/)
 - [Bolt — an embedded key/value database for Go](https://www.progville.com/go/bolt-embedded-db-golang/)
 - [Golang : How to reverse elements order in map?](https://www.socketloop.com/tutorials/golang-how-to-reverse-elements-order-in-map)
 - [gRPC-JSON Proxy](http://yugui.jp/articles/889)
