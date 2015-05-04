@@ -53,6 +53,7 @@ start to run the server and use any number of clients
 ## Roadmap
 
 - integrate client and server into one program
+- utilize bolt db and other sql dbs
 
 ## History
 

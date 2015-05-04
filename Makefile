@@ -69,13 +69,14 @@ bolt:
 	bolt check person.db
 
 clean:
+	cd examples && make clean
 	rm -f client/client server/server person.db
 
 git-push gpush gu:
 	make clean
 	git init
 	git add *
-	git commit -m "bolt db is used"
+	git commit -m "write bolt db utility functions"
 	git push -u https://sikang99@github.com/sikang99/$(PROGRAM) master
 	#chromium-browser https://github.com/sikang99/$(PROGRAM)
 
