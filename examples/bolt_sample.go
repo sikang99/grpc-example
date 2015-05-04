@@ -1,12 +1,16 @@
 /*
 - [Intro to BoltDB: Painless Performant Persistence](http://npf.io/2014/07/intro-to-boltdb-painless-performant-persistence/)
 - [Bolt — an embedded key/value database for Go](https://www.progville.com/go/bolt-embedded-db-golang/)
+- [Bolt README](https://github.com/boltdb/bolt/blob/master/README.md)
 */
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"log"
+	"os"
+	"time"
 
 	"github.com/boltdb/bolt"
 )
@@ -49,7 +53,36 @@ func main() {
 	err = BoltPutItem(db, world, key, value)
 
 	err = BoltListBucket(db, world)
+	err = BoltDeleteBucket(db, world)
 	err = BoltListAll(db)
+
+	BoltState(db)
+	BoltMonitor(db)
+}
+
+func BoltMonitor(db *bolt.DB) {
+	// Grab the initial stats.
+	prev := db.Stats()
+
+	for {
+		// Wait for 10s.
+		time.Sleep(10 * time.Second)
+
+		// Grab the current stats and diff them.
+		stats := db.Stats()
+		diff := stats.Sub(&prev)
+
+		// Encode stats to JSON and print to STDERR.
+		json.NewEncoder(os.Stderr).Encode(diff)
+
+		// Save stats for the next loop.
+		prev = stats
+	}
+}
+
+func BoltState(db *bolt.DB) {
+	stat := db.Stats()
+	json.NewEncoder(os.Stderr).Encode(stat)
 }
 
 func BoltListAll(db *bolt.DB) error {
@@ -77,6 +110,22 @@ func BoltListBucket(db *bolt.DB, bucket []byte) error {
 		c := tx.Bucket(bucket).Cursor()
 		for k, v := c.Last(); k != nil; k, v = c.Prev() {
 			fmt.Printf("\tk:%q, v:%q\n", k, v)
+		}
+		return nil
+	})
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	return nil
+}
+
+func BoltDeleteBucket(db *bolt.DB, bucket []byte) error {
+	err := db.Update(func(tx *bolt.Tx) error {
+		err := tx.DeleteBucket(bucket)
+		if err != nil {
+			return err
 		}
 		return nil
 	})
@@ -137,7 +186,7 @@ func BoltPutItem(db *bolt.DB, bucket, key, value []byte) error {
 func BoltDeleteItem(db *bolt.DB, bucket, key []byte) error {
 	err := db.Update(func(tx *bolt.Tx) error {
 		bk := tx.Bucket(bucket)
-		if bucket == nil {
+		if bk == nil {
 			return fmt.Errorf("Bucket %q not found!", bk)
 		}
 
