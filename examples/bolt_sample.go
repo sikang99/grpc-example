@@ -108,7 +108,7 @@ func BoltListAll(db *bolt.DB) error {
 	})
 
 	if err != nil {
-		log.Fatal(err)
+		log.Fatalf("%v %T\n", err, err)
 	}
 
 	return nil
@@ -124,7 +124,7 @@ func BoltListBucket(db *bolt.DB, bucket []byte) error {
 	})
 
 	if err != nil {
-		log.Fatal(err)
+		log.Fatalf("%v %T\n", err, err)
 	}
 
 	return nil
@@ -140,7 +140,7 @@ func BoltDeleteBucket(db *bolt.DB, bucket []byte) error {
 	})
 
 	if err != nil {
-		log.Fatal(err)
+		log.Fatalf("%v %T\n", err, err)
 	}
 
 	return nil
@@ -165,7 +165,7 @@ func BoltGetItem(db *bolt.DB, bucket, key []byte) ([]byte, error) {
 	})
 
 	if err != nil {
-		log.Fatal(err)
+		log.Fatalf("%v %T\n", err, err)
 	}
 
 	return value, err
@@ -186,7 +186,7 @@ func BoltPutItem(db *bolt.DB, bucket, key, value []byte) error {
 	})
 
 	if err != nil {
-		log.Fatal(err)
+		log.Fatalf("%v %T\n", err, err)
 	}
 
 	return nil
@@ -207,7 +207,7 @@ func BoltDeleteItem(db *bolt.DB, bucket, key []byte) error {
 	})
 
 	if err != nil {
-		log.Fatal(err)
+		log.Fatalf("%v %T\n", err, err)
 	}
 
 	return nil
