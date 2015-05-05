@@ -19,12 +19,11 @@ import (
 var world = []byte("world")
 
 func main() {
-	db, err := bolt.Open("sample.db", 0644, &bolt.Options{Timeout: 3 * time.Second})
-	//db, err := bolt.Open("sample.db", 0644, nil)
+	db, err := BoltOpen("sample.db", nil)
 	if err != nil {
-		log.Fatal(err)
+		log.Fatalf("%v %T\n", err, err)
 	}
-	defer db.Close()
+	defer BoltClose(db)
 
 	key := []byte("hello")
 	value := []byte("Hello World!")
@@ -62,13 +61,21 @@ func main() {
 	BoltMonitor(db, 5*time.Second)
 }
 
-func BoltMonitor(db *bolt.DB, t time.Duration) {
+func BoltOpen(dbpath string, dbopt *bolt.Options) (*bolt.DB, error) {
+	return bolt.Open(dbpath, 0644, dbopt)
+}
+
+func BoltClose(db *bolt.DB) {
+	db.Close()
+}
+
+func BoltMonitor(db *bolt.DB, ts time.Duration) {
 	// Grab the initial stats.
 	prev := db.Stats()
 
 	for {
 		// Wait for 10s.
-		time.Sleep(t)
+		time.Sleep(ts)
 
 		// Grab the current stats and diff them.
 		stats := db.Stats()
