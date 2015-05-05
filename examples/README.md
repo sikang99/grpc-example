@@ -1,6 +1,9 @@
-## Test samples
+### Test samples
 
-### `bolt_sample.go` : Bolt DB handling
+Some sample sources used to develop the service.
+
+
+#### `bolt_sample.go` : Bolt DB handling
 
 - [Porter.io boltbd/bolt](https://porter.io/github.com/boltdb/bolt)
 - [Intro to BoltDB: Painless Performant Persistence](http://npf.io/2014/07/intro-to-boltdb-painless-performant-persistence/)

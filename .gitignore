@@ -1,0 +1,12 @@
+# directories
+client_test
+
+# executables
+client/client
+server/server
+
+# temporary files
+*.db
+*.swp
+
+# large video files

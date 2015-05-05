@@ -75,7 +75,7 @@ clean:
 git-push gpush gu:
 	make clean
 	git init
-	git add *
+	git add * .gitignore
 	git commit -m "write bolt db utility functions with some more"
 	git push -u https://sikang99@github.com/sikang99/$(PROGRAM) master
 	#chromium-browser https://github.com/sikang99/$(PROGRAM)
