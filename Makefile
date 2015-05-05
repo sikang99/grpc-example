@@ -20,7 +20,7 @@ es:
 	vi server/server.go
 
 ed:
-	vi server/db.go
+	vi proto/$(SERVICE)_db.go
 
 et:
 	vi test/load_test.go

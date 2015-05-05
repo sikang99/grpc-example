@@ -23,10 +23,10 @@ type customerService struct {
 
 func NewCustomerService() *customerService {
 	cs := customerService{
-		id:        1,
+		id:        1, // start id number
 		customers: make(map[int]*pb.Person),
-		db:        boltOpen("person.db"),
 	}
+	cs.db, _ = pb.BoltOpen("person.db", nil)
 	return &cs
 }
 
