@@ -21,6 +21,9 @@ bolt:
 clean:
 	rm -f ./sample sample.db
 
+readme md:
+	vi README.md
+
 make m:
 	vi Makefile
 
