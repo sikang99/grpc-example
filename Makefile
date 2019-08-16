@@ -32,18 +32,21 @@ proto p:
 
 build b:
 	go build -o client/client client/client.go
-	go build -o server/server ./server/*.go
+	go build -o server/server server/*.go
 
 rebuild:
 	make proto
 	make build
 
 run r:
+	@echo "> make (run) [all|client|server]"
+
+run-all ra:
 	./server/server &
 	sleep 1
 	./client/client list
 
-client rc:
+run-client rc:
 	./client/client add stoney 52
 	./client/client add mandoo 19
 	./client/client add namoo 25
@@ -55,7 +58,7 @@ client rc:
 	./client/client list
 	./client/client list 19
 
-server rs:
+run-server rs:
 	./server/server &
 
 kill k:
@@ -66,7 +69,7 @@ test t:
 	cd test && go test -v	
 	@make kill
 
-bolt:
+db-check dc:
 	bolt check person.db
 
 clean:
@@ -76,7 +79,7 @@ clean:
 git-push gpush gu:
 	make clean
 	git add * .gitignore 
-	git commit -m "modify test"
+	git commit -m "modify Makefile"
 	git push
 
 git-store gs:
