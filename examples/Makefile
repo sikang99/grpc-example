@@ -1,9 +1,12 @@
-
+#
+# Makefile for bolt test
+#
 .PHONEY: all build run usage
 
 TARGET=bolt
 
-all: usage
+usage:
+	@echo "usage: make [edit|build|run|clean]"
 
 edit e:
 	vi $(TARGET)_sample.go
@@ -14,20 +17,13 @@ build b:
 run r:
 	./sample
 
-bolt:
+bolt-install:
+	go get github.com/boltdb/bolt
+
+bolt-check:
 	bolt check sample.db
 	bolt stats sample.db
 
 clean:
 	rm -f ./sample sample.db
 
-readme md:
-	vi README.md
-
-make m:
-	vi Makefile
-
-usage:
-	@echo ""
-	@echo "make [edit|build|run|clean]"
-	@echo ""

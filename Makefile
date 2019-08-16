@@ -6,15 +6,12 @@ PROGRAM=grpc-example
 SERVICE=customer_service
 
 usage:
-	@echo ""
 	@echo "Makefile for $(PROGRAM), by Stoney Kang, sikang99@gmail.com"
-	@echo ""
 	@echo "make [proto|build|run|kill|test]"
 	@echo "   - proto : compile interface spec"
 	@echo "   - build : compile client/server"
 	@echo "   - run   : start the server and exec client"
 	@echo "   - kill  : stop the server"
-	@echo ""
 
 ep:
 	vi proto/$(SERVICE).proto
@@ -79,7 +76,7 @@ clean:
 git-push gpush gu:
 	make clean
 	git add * .gitignore 
-	git commit -m "rewrite the sources according to the grpc recent versions"
+	git commit -m "modify test"
 	git push
 
 git-store gs:
