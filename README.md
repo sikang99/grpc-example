@@ -58,6 +58,7 @@ start to run the server and use any number of clients
 ## History
 
 - 2019/08/16 : rewrite sources according to new grpc version
+- 2019/08/16 : "[undefined：proto.ProtoPackageIsVersion3](https://xbuba.com/questions/53952723)" error occur
 - 2015/05/04 : write handling funcs for boltdb
 - 2015/05/02 : add code for server testing by client
 - 2015/05/01 : list support search with condition optionally
@@ -81,6 +82,7 @@ start to run the server and use any number of clients
 
 - [gRPC-JSON Proxy](http://yugui.jp/articles/889)
 - [mattn/grpc-example](https://github.com/mattn/grpc-example)
+- [gRPC](https://www.grpc.io/)
 
 ### Protocol Buffers (protobuf)
 
