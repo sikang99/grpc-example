@@ -6,7 +6,7 @@ It requires the new version of `protobuf` supporting `proto3` and `grpc`.
 First, check the `protoc` compiler as follows.
 
 	$ protoc --version
-	libprotoc 3.0.0
+	libprotoc 3.7.1
 
 ## Install
 
@@ -67,8 +67,7 @@ start to run the server and use any number of clients
 
 ## Reference
 
-#### Go
-
+### Go
 - 2019/05/10 [Learning Go: MongoDB CRUD with gRPC](https://itnext.io/learning-go-mongodb-crud-with-grpc-98e425aeaae6)
 - 2019/03/12 [A brief introduction to gRPC in Go](https://blog.lelonek.me/a-brief-introduction-to-grpc-in-go-e66e596fe244)
 - [Travis-CI example for Go](https://github.com/atotto/travisci-golang-example)
@@ -79,23 +78,24 @@ start to run the server and use any number of clients
 - [Go - how do I dump the struct into the byte array without reflection?](http://stackoverflow.com/questions/12854125/go-how-do-i-dump-the-struct-into-the-byte-array-without-reflection)
 - [Golang : How to reverse elements order in map?](https://www.socketloop.com/tutorials/golang-how-to-reverse-elements-order-in-map)
 
-#### gRPC
 
+### gRPC
+- [EDDYCJY/go-grpc-example](https://github.com/EDDYCJY/go-grpc-example)
 - [gRPC-JSON Proxy](http://yugui.jp/articles/889)
 - [mattn/grpc-example](https://github.com/mattn/grpc-example)
 - [gRPC](https://www.grpc.io/)
 
-### Protocol Buffers (protobuf)
 
+### Protocol Buffers (protobuf)
 - [Protocol Buffers を利用した RPC、gRPC を golang から試してみ](http://mattn.kaoriya.net/software/lang/go/20150227144125.htm) 
 - [Protobuf](http://fileformats.archiveteam.org/wiki/Protobuf)
 
-### Database
 
+### Database
 - [PaulMaddox/golang-db-pool-pattern](https://github.com/PaulMaddox/golang-db-pool-pattern)
 - [Bolt — an embedded key/value database for Go](https://www.progville.com/go/bolt-embedded-db-golang/)
 
-## License
 
+## License
 MIT
 
