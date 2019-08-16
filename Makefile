@@ -79,7 +79,7 @@ clean:
 git-push gpush gu:
 	make clean
 	git add * .gitignore 
-	git commit -m "move examples into bolt_test"
+	git commit -m "modify README.md"
 	git push
 
 git-store gs:
