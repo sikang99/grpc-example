@@ -73,13 +73,13 @@ db-check dc:
 	bolt check person.db
 
 clean:
-	cd examples && make clean
+	cd bolt_test && make clean
 	rm -f client/client server/server person.db
 
 git-push gpush gu:
 	make clean
 	git add * .gitignore 
-	git commit -m "modify Makefile"
+	git commit -m "move examples into bolt_test"
 	git push
 
 git-store gs:
