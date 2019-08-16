@@ -57,6 +57,7 @@ start to run the server and use any number of clients
 
 ## History
 
+- 2019/08/16 : rewrite sources according to new grpc version
 - 2015/05/04 : write handling funcs for boltdb
 - 2015/05/02 : add code for server testing by client
 - 2015/05/01 : list support search with condition optionally
@@ -67,6 +68,7 @@ start to run the server and use any number of clients
 
 #### Go
 
+- 2019/03/12 [A brief introduction to gRPC in Go](https://blog.lelonek.me/a-brief-introduction-to-grpc-in-go-e66e596fe244)
 - [Travis-CI example for Go](https://github.com/atotto/travisci-golang-example)
 - [Learning Golang with Testing](http://jordenlowe.com/title/Learning_Golang_with_Testing)
 - [Making a RESTful JSON API in Go](http://thenewstack.io/make-a-restful-json-api-go/)
