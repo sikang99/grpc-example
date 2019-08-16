@@ -1,6 +1,6 @@
-### Test samples
+### Bolt DB test samples
 
-Some sample sources used to develop the service.
+Some sample test sources for bolt database used to develop the service.
 
 
 #### `bolt_sample.go` : Bolt DB handling
