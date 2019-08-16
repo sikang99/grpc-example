@@ -9,7 +9,8 @@ import (
 
 	"github.com/boltdb/bolt"
 
-	pb "../proto"
+	//pb "../proto"
+	pb "github.com/sikang99/grpc-example/proto"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
 )

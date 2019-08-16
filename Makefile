@@ -1,27 +1,31 @@
 # Makefile for go program
 .PHONY:	all proto build run test client server kill make usage
 
-PROTOC=/usr/local/bin/protoc
+PROTOC=protoc
 PROGRAM=grpc-example
 SERVICE=customer_service
 
-all: usage
+usage:
+	@echo ""
+	@echo "Makefile for $(PROGRAM), by Stoney Kang, sikang99@gmail.com"
+	@echo ""
+	@echo "make [proto|build|run|kill|test]"
+	@echo "   - proto : compile interface spec"
+	@echo "   - build : compile client/server"
+	@echo "   - run   : start the server and exec client"
+	@echo "   - kill  : stop the server"
+	@echo ""
 
 ep:
 	vi proto/$(SERVICE).proto
-
 epg:
 	vi proto/$(SERVICE).pb.go
-
 ec:
 	vi client/client.go
-
 es:
 	vi server/server.go
-
 ed:
 	vi proto/$(SERVICE)_db.go
-
 et:
 	vi test/load_test.go
 
@@ -74,30 +78,11 @@ clean:
 
 git-push gpush gu:
 	make clean
-	git init
-	git add * .gitignore
-	git commit -m "write bolt db utility functions with some more"
-	git push -u https://sikang99@github.com/sikang99/$(PROGRAM) master
-	#chromium-browser https://github.com/sikang99/$(PROGRAM)
+	git add * .gitignore 
+	git commit -m "rewrite the sources according to the grpc recent versions"
+	git push
 
-git-status gs:
-	git status
-	git log --oneline -5
+git-store gs:
+	git config credential.helper store
 
 
-readme md:
-	vi README.md
-
-make m:
-	vi Makefile
-
-usage:
-	@echo ""
-	@echo "Makefile for $(PROGRAM), by Stoney Kang, sikang99@gmail.com"
-	@echo ""
-	@echo "make [proto|build|run|kill|test]"
-	@echo "   - proto : compile interface spec"
-	@echo "   - build : compile client/server"
-	@echo "   - run   : start the server and exec client"
-	@echo "   - kill  : stop the server"
-	@echo ""

@@ -12,11 +12,11 @@ service CustomerService {
 }
 
 message ResponseType {
-  optional Person person = 1;
+  Person person = 1;
 }
 
 message RequestType {
-  optional Person person = 1;
+  Person person = 1;
 }
 
 message Person {

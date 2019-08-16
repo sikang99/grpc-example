@@ -5,8 +5,9 @@ import (
 	"io"
 	"strconv"
 
-	pb "../proto"
+	//pb "../proto"
 	"github.com/mattn/sc"
+	pb "github.com/sikang99/grpc-example/proto"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
 )
